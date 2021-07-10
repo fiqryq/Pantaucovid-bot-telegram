@@ -1,27 +1,31 @@
 require("dotenv").config();
-const TelegramBot = require("node-telegram-bot-api");
-const token = process.env.TELEGRAM_TOKEN;
+const { Telegraf } = require("telegraf");
+const { convertNumberFormat, convertDateToPatern } = require("./utils/helper");
+const axios = require("axios");
 
-// Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(token, { polling: true });
+const url = process.env.BASE_URL;
+const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
-// Matches "/echo [whatever]"
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  // 'msg' is the received Message from Telegram
-  // 'match' is the result of executing the regexp above on the text content
-  // of the message
-  const chatId = msg.chat.id;
-  const resp = match[1]; // the captured "whatever"
+bot.start((ctx) => ctx.reply("Selamat datang di Pantaucovid"));
+bot.on("sticker", (ctx) => ctx.reply("👍"));
 
-  // send back the matched "whatever" to the chat
-  bot.sendMessage(chatId, resp);
+// Main command
+bot.command("kasus", (ctx) => {
+  getKasus(ctx);
 });
 
-// Listen for any kind of message. There are different kinds of
-// messages.
-bot.on("message", (msg) => {
-  const chatId = msg.chat.id;
+async function getKasus(ctx) {
+  try {
+    const response = await axios.get(url);
+    const lastUpdate = convertDateToPatern(response.data.lastUpdate.value);
+    const confirmed = convertNumberFormat(response.data.confirmed.value);
+    const recovered = convertNumberFormat(response.data.recovered.value);
+    const deaths = convertNumberFormat(response.data.deaths.value);
+    const message = `Update kasus ${lastUpdate} \nTerkonfirmasi Positif : ${confirmed} \nSembuh : ${recovered} \nMeninggal : ${deaths}`;
+    ctx.reply(message);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-  // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, "Received your message");
-});
+bot.launch();

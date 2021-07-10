@@ -2,16 +2,23 @@
   "name": "pantaucovid-telegram",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/bot.js"
+    "start": "nodemon ./src/bot.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "dotenv": "^10.0.0",
-    "node-telegram-bot-api": "^0.53.0"
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "telegraf": "^4.4.0",
+    "text-to-image": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
