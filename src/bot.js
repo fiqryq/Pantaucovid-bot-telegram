@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Telegraf } = require("telegraf");
-const { convertNumberFormat, convertDateToPatern } = require("./utils/helper");
+const { convertNumberFormat, convertDateToPatern } = require("../utils/helper");
 const axios = require("axios");
 
 const url = process.env.BASE_URL;
