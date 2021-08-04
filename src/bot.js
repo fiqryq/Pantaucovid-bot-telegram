@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Telegraf } = require("telegraf");
-const { convertNumberFormat, convertDateToPatern } = require("../utils/helper");
+const { convertNumberFormat, convertToPattern } = require("../common/helper");
 const axios = require("axios");
 
 const url = process.env.BASE_URL;
@@ -16,12 +16,17 @@ bot.command("kasus", (ctx) => {
 
 async function getKasus(ctx) {
   try {
-    const response = await axios.get(url);
-    const lastUpdate = convertDateToPatern(response.data.lastUpdate.value);
-    const confirmed = convertNumberFormat(response.data.confirmed.value);
-    const recovered = convertNumberFormat(response.data.recovered.value);
-    const deaths = convertNumberFormat(response.data.deaths.value);
-    const message = `Update kasus ${lastUpdate} \nTerkonfirmasi Positif : ${confirmed} \nSembuh : ${recovered} \nMeninggal : ${deaths}`;
+    const { data } = await axios.get(url);
+    const { confirmed, recovered, deaths, lastUpdate } = data;
+
+    const message = `Update kasus ${convertToPattern(
+      lastUpdate.value
+    )} \nPositif : ${convertNumberFormat(
+      confirmed.value
+    )} \nSembuh : ${convertNumberFormat(
+      recovered.value
+    )} \nMeninggal : ${convertNumberFormat(deaths.value)}`;
+
     ctx.reply(message);
   } catch (error) {
     console.log(error);
