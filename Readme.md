@@ -1,9 +1,8 @@
-![Pantau Covid](./assets/Logo.png)
-
-## What is this?
-An open-source telegram bot about covid 19 in indonesia.
-### Features
-- View daily case
-- View Vaccine progress
+<span align="center"><img width="200px" height="200px" src="./assets/Logo.png"></span>
+## Apa ini?
+Ini adalah project terbuka berupa Bot telegram yang bisa menampilkan informasi mengenai covid 19 di indonesia.
+### Fitur
+- Melihat kasus harian
+- Melihat progress vaksin harian
 
 © 2021 Fiqry choerudin
