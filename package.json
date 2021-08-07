@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/bot.js",
-    "dev":"nodemon ./src/bot.js"
+    "dev": "nodemon ./src/bot.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,9 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "moment": "^2.29.1",
-    "telegraf": "^4.4.0",
+    "telegraf": "^4.4.1",
+    "telegraf-inline-menu": "^6.3.0",
+    "telegraf-menu": "^1.6.0",
     "text-to-image": "^4.0.0"
   },
   "devDependencies": {
